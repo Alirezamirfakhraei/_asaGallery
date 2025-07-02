@@ -42,23 +42,32 @@ class HolooService
         return null;
     }
 
-    public function callApi($endpoint, $method = 'GET', $body = [])
+    public function callApi($endpoint, $method = 'GET', $params = [])
     {
         $token = $this->getToken();
+        dd($token);
         if (!$token) return ['error' => 'Token failed'];
+
+        // اگر متد GET هست، پارامترها را به صورت query string بچسبان
+        if ($method === 'GET' && !empty($params)) {
+            $endpoint .= '?' . http_build_query($params);
+        }
 
         $url = "{$this->baseUrl}/{$endpoint}";
         $request = Http::withToken($token);
-        $response = $method === 'POST' ? $request->post($url, $body) : $request->get($url);
+        // حالا فقط اگر POST بود، پارامترها را به عنوان body بفرست
+        $response = $method === 'POST' ? $request->post($url, $params) : $request->get($url);
+
         // اگر توکن منقضی شده بود
         if ($response->status() === 401) {
             Cache::forget($this->tokenCacheKey);
             $token = $this->getToken();
             if (!$token) return ['error' => 'Token refresh failed'];
             $request = Http::withToken($token);
-            $response = $method === 'POST' ? $request->post($url, $body) : $request->get($url);
+            $response = $method === 'POST' ? $request->post($url, $params) : $request->get($url);
         }
 
         return $response->json();
     }
+
 }

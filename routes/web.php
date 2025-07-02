@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Back\ApikeyController;
 use App\Http\Controllers\Back\ClientController;
+use App\Http\Controllers\Back\InvoicesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Back\ProvinceController;
 use App\Http\Controllers\Back\MainController;
@@ -86,6 +87,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin/' . admin_route_prefix(), 'mi
     Route::get('getSubClients', [ClientController::class, 'subClients'])->name('subClients');
     Route::post('subClients', [ClientController::class, 'addSubClient'])->name('subClients.add');
     Route::post('subClient/delete/{id}', [ClientController::class, 'deleteSubClient'])->name('subClient.destroy');
+    Route::get('invoices', [InvoicesController::class, 'invoices'])->name('invoices');
+
 
 
     // ------------------ MainController

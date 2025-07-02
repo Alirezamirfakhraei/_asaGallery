@@ -14,38 +14,55 @@
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
 
-            <li class="{{ active_class('admin.dashboard') }} nav-item"><a href="{{ route('admin.dashboard') }}">
-                    <i class="feather icon-home"></i>
-                    <span class="menu-title">داشبورد</span>
-                </a>
-            </li>
-
             <li class="nav-item has-sub {{ open_class(['admin.nila.*']) }}">
                 <a href="#">
                     <i class="feather icon-database"></i>
                     <span class="menu-title">وب سرویس نیلا</span>
                 </a>
                 <ul class="menu-content">
-                    <li class="{{ active_class('admin.nila.customers') }}">
-                        <a href="{{ route('admin.nila.getClients') }}">
-                            <i class="feather icon-circle"></i>
-                            <span class="menu-item">کلاینت ها</span>
+
+                    <li class="has-sub {{ open_class(['admin.nila.customers', 'nila.client.create', 'nila.client.subClients']) }}">
+                        <a href="#">
+                            <i class="feather icon-users"></i>
+                            <span class="menu-item">کلاینت‌ها</span>
                         </a>
+                        <ul class="menu-content">
+                            <li class="{{ active_class('admin.nila.customers') }}">
+                                <a href="{{ route('admin.nila.getClients') }}">
+                                    <i class="feather icon-circle"></i>
+                                    <span class="menu-item">لیست کلاینت‌ها</span>
+                                </a>
+                            </li>
+                            <li class="{{ active_class('nila.client.subClients') }}">
+                                <a href="{{ route('admin.subClients') }}">
+                                    <i class="feather icon-user-check"></i>
+                                    <span class="menu-item">ویزیتورها</span>
+                                </a>
+                            </li>
+                            <li class="{{ active_class('nila.client.create') }}">
+                                <a href="{{ route('admin.nila.client.create') }}">
+                                    <i class="feather icon-plus-circle"></i>
+                                    <span class="menu-item">ثبت کلاینت جدید</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub {{ open_class(['nila.invoices']) }}">
+                        <a href="#">
+                            <i class="feather icon-users"></i>
+                            <span class="menu-item">مالی</span>
+                        </a>
+                        <ul class="menu-content">
+                            <li class="{{ active_class('nila.invoices') }}">
+                                <a href="{{ route('admin.invoices') }}">
+                                    <i class="feather icon-file-text"></i>
+                                    <span class="menu-item">فاکتورها</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 
-                    <li class="{{ active_class('nila.client.create') }}">
-                        <a href="{{ route('admin.nila.client.create') }}">
-                            <i class="feather icon-plus-circle"></i>
-                            <span class="menu-item">ثبت کلاینت جدید</span>
-                        </a>
-                    </li>
 
-                    <li class="{{ active_class('nila.client.subClients') }}">
-                        <a href="{{ route('admin.subClients') }}">
-                            <i class="feather icon-user-check"></i>
-                            <span class="menu-item">ویزیتور ها</span>
-                        </a>
-                    </li>
 
                 </ul>
             </li>
